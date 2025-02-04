@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "author": "Ronaldo César",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-pi-pico-w", "id": "pico", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 25.4,
+      "left": -86.4,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 73.2,
+      "left": -159.4,
+      "attrs": { "color": "limegreen" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": 150,
+      "left": -149.8,
+      "attrs": { "color": "blue" }
+    },
+    { "type": "wokwi-led", "id": "led3", "top": 198, "left": -149.8, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 138.35,
+      "left": -96,
+      "attrs": { "value": "330" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 186.35,
+      "left": -86.4,
+      "attrs": { "value": "330" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": 234.35,
+      "left": -96,
+      "attrs": { "value": "330" }
+    }
+  ],
+  "connections": [
+    [ "pico:GP0", "$serialMonitor:RX", "", [] ],
+    [ "pico:GP1", "$serialMonitor:TX", "", [] ],
+    [ "btn1:1.r", "pico:GND.1", "black", [ "v0" ] ],
+    [ "btn1:2.r", "pico:GP5", "green", [ "h0" ] ],
+    [ "led1:C", "pico:GND.3", "black", [ "v0" ] ],
+    [ "led3:A", "r3:1", "red", [ "h19.2", "v-9.6" ] ],
+    [ "led2:A", "r2:1", "red", [ "v0" ] ],
+    [ "led1:A", "r1:1", "red", [ "v0" ] ],
+    [ "led2:C", "pico:GND.3", "black", [ "h-9.2", "v-54.35" ] ],
+    [ "led3:C", "pico:GND.3", "black", [ "h-9.2", "v-111.95" ] ],
+    [ "r3:2", "pico:GP13", "red", [ "h27.6", "v-63.99" ] ],
+    [ "r1:2", "pico:GP11", "red", [ "v0" ] ],
+    [ "r2:2", "pico:GP12", "red", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
