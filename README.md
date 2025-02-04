@@ -1,65 +1,38 @@
-# Projeto de Controle de Matriz de LEDs com Raspberry Pi Pico com interrupções
+# Clock e Temporizadores
+# Projetos de Temporização para Raspberry Pi Pico
 
-Este projeto foi desenvolvido como parte de uma atividade prática para consolidar o entendimento de interrupções, debouncing, controle de LEDs e uso de resistores de pull-up internos no microcontrolador RP2040, utilizando a placa de desenvolvimento BitDogLab.
+Este repositório contém dois projetos desenvolvidos para o microcontrolador Raspberry Pi Pico, utilizando o Pico SDK. Os projetos envolvem o controle de LEDs com temporizadores, sendo eles um semáforo e um sistema de acionamento de LEDs com botão. Abaixo, são descritas as atividades implementadas.
 
-## Descrição do Projeto
+## Atividade 1: Temporizador Periódico - Semáforo
 
-O projeto consiste em um sistema que controla uma matriz de LEDs WS2812 (5x5) e um LED RGB, utilizando botões para interação. As funcionalidades incluem:
+Nesta atividade, foi desenvolvido um sistema de semáforo com LEDs utilizando a função `add_repeating_timer_ms()` do Pico SDK. O semáforo alterna entre três LEDs (vermelho, amarelo e verde), com um atraso de 3 segundos entre cada mudança de sinal.
 
-1. **Piscar LED Vermelho**: O LED vermelho pisca continuamente a uma taxa de 5 vezes por segundo.
-2. **Incrementar Número**: O botão A incrementa o número exibido na matriz de LEDs.
-3. **Decrementar Número**: O botão B decrementa o número exibido na matriz de LEDs.
-4. **Exibição de Números**: A matriz de LEDs exibe números de 0 a 9 em um formato fixo (estilo digital).
+### Requisitos:
+1. O acionamento dos LEDs inicia na cor vermelha, alterando para amarela e, em seguida, para verde.
+2. O temporizador é ajustado para um atraso de 3 segundos (3.000ms).
+3. A mudança de estado dos LEDs é implementada na função de call-back do temporizador.
+4. A rotina principal imprime uma mensagem a cada segundo (1.000 ms).
+5. O código foi testado no simulador Wokwi, utilizando o LED RGB nos pinos GPIOs 11, 12 e 13.
 
-## Componentes Utilizados
+---
 
-- **Raspberry Pi Pico**
-- **Matriz de LEDs WS2812 (5x5)**
-- **LED RGB**
-- **Botões A e B**
-- **Resistores de pull-up internos**
+## Atividade 2: Temporizador de Um Disparo (One Shot) - Acionamento de LEDs com Botão
 
-## Funcionalidades Implementadas
+Nesta atividade, foi implementado um sistema de temporização para o acionamento de LEDs, ativados por um botão (pushbutton). A sequência de LEDs é controlada por callbacks e temporizadores, com um atraso de 3 segundos entre cada estado.
 
-- **Interrupções**: Uso de interrupções para detectar pressionamentos dos botões.
-- **Debouncing**: Implementação de debouncing via software para evitar leituras falsas dos botões.
-- **Controle de LEDs**: Controle de LEDs comuns (RGB) e LEDs endereçáveis (WS2812).
-- **Organização do Código**: Código estruturado e comentado para facilitar o entendimento.
+### Requisitos:
+1. Ao pressionar o botão, os três LEDs são ligados e, após 3 segundos, a mudança de estado ocorre em três etapas: dois LEDs acesos, depois um LED aceso, e por fim todos os LEDs apagados.
+2. O temporizador de alarme é ajustado para 3 segundos entre cada mudança de estado dos LEDs.
+3. A mudança de estado dos LEDs é implementada em funções de callback do temporizador, como **`desligar_led1_callback()`**, **`desligar_led2_callback()`**, e **`desligar_led3_callback()`**, que controlam o desligamento sequencial dos LEDs.
+4. Durante a execução do temporizador, o botão não pode iniciar uma nova chamada do callback.
+5. O código foi testado no simulador Wokwi, utilizando o LEDs Verde, Azul e Vermelho nos pinos GPIOs 11, 12 e 13 e o botão no GPIO 5.
 
-## Estrutura do Código
+---
 
-O código está organizado da seguinte forma:
+## Como Executar
 
-- **Bibliotecas**: Inclusão das bibliotecas necessárias.
-- **Definições de Pinos**: Definição dos pinos utilizados para LEDs e botões.
-- **Variáveis Globais**: Armazenamento do estado dos botões e do número atual.
-- **Funções**:
-  - `piscar_led_vermelho`: Faz o LED vermelho piscar.
-  - `gpio_irq_handler`: Manipula interrupções dos botões.
-  - `debounce_button`: Implementa debounce para os botões.
-  - `display_number`: Exibe números na matriz de LEDs.
-- **Função `main`**: Configura o hardware e executa o loop principal.
-
-## Como Usar
-
-### Configuração
-
-Clone o Repositório
-
-Configure o Ambiente de Desenvolvimento no VSCode:
-
-Utilize a bibiloteca da Raspberry Pi Pico para criar o arquivo .build .
-
-Compile o Projeto:
-Carregue o Firmware no Raspberry Pi Pico:
-
-Execução
-Após carregar o firmware, o projeto estará em execução na placa BitDogLab.
-
-Pressione os botões A e B para incrementar e decrementar o número exibido na matriz de LEDs.
-
- **Vídeo Demonstrativo**:
-Vídeo de Demonstração
-https://youtube.com/shorts/cE7nyK1iTgU
-
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/seu-repositorio.git
+2. Em seguida utilizando a extensão da raspberry pi pico pelo VSCode, **você deve exportar o projeto de cada Tarefa individualmente para poder executar os arquivos em seu computador**.
 
